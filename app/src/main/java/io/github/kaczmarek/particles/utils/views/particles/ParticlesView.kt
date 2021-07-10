@@ -13,6 +13,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.core.content.ContextCompat
 import io.github.kaczmarek.particles.R
+import io.github.kaczmarek.particles.utils.views.common.viewScope
 import kotlinx.coroutines.*
 import kotlin.math.min
 import kotlin.math.sqrt
@@ -62,7 +63,7 @@ class ParticlesView @JvmOverloads constructor(
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        drawingJob = GlobalScope.launch {
+        drawingJob = viewScope.launch {
             initParticles()
             while (isActive) {
                 val canvas = holder.lockCanvas() ?: continue
@@ -168,10 +169,10 @@ class ParticlesView @JvmOverloads constructor(
 
     private fun Canvas.drawParticlesWhenTouching() {
         val manualParticle = Particle(x = touchX, y = touchY)
-         with(manualParticle) {
-             particlesPaint.alpha = alpha
-             drawCircle(x, y, radius, particlesPaint)
-         }
+        with(manualParticle) {
+            particlesPaint.alpha = alpha
+            drawCircle(x, y, radius, particlesPaint)
+        }
 
         for (j in 0 until PARTICLES_COUNT) {
             drawLinesBetweenParticles(manualParticle, particles[j], true)

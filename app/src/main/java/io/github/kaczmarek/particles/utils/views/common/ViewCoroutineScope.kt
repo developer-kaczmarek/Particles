@@ -24,7 +24,7 @@ val View.viewScope: CoroutineScope
     }
 
 private class ViewCoroutineScope : CoroutineScope, View.OnAttachStateChangeListener {
-    override val coroutineContext = SupervisorJob() + Dispatchers.Main
+    override val coroutineContext = SupervisorJob() + Dispatchers.IO
 
     override fun onViewAttachedToWindow(view: View) = Unit
 
