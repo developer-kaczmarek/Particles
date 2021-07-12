@@ -56,7 +56,11 @@ class ParticlesView @JvmOverloads constructor(
                 touchX = event.x
                 touchY = event.y
             }
-            MotionEvent.ACTION_DOWN -> shouldDrawWhenTouching = true
+            MotionEvent.ACTION_DOWN -> {
+                touchX = event.x
+                touchY = event.y
+                shouldDrawWhenTouching = true
+            }
             else -> shouldDrawWhenTouching = false
         }
         return true
